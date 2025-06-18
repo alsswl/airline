@@ -1,4 +1,4 @@
-package com.airline.Controller;
+package com.airline.controller;
 
 import com.airline.repository.CustomerRepository;
 import jakarta.servlet.http.HttpSession;
@@ -31,13 +31,18 @@ public class CustomerController {
         .filter(c -> c.getPasswd().equals(passwd))
         .map(c -> {
           session.setAttribute("customer", c);
-          return "redirect:/dashboard";
+          if ("c0".equals(c.getCno())) {
+            return "redirect:/stats"; // 관리자일 경우
+          } else {
+            return "redirect:/dashboard";   // 일반 사용자
+          }
         })
         .orElseGet(() -> {
           model.addAttribute("error", "회원 정보가 일치하지 않습니다.");
           return "login";
         });
   }
+
 
   @GetMapping("/logout")
   public String logout(HttpSession session) {

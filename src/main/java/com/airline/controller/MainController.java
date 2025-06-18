@@ -1,4 +1,4 @@
-package com.airline.Controller;
+package com.airline.controller;
 
 import com.airline.entity.Customer;
 import jakarta.servlet.http.HttpSession;
